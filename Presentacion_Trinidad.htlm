@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>¿Debería creer usted en la Trinidad?</title>
+    <!-- Importar fuentes de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Merriweather:wght@400;700&display=swap"
+        rel="stylesheet" />
+    <!-- Importar Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <style>
+        /* 1. CONFIGURACIÓN BÁSICA Y TEMA */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            /* Fondo gris claro para el área fuera de las diapositivas */
+            background-color: #e2e8f0;
+            display: grid;
+            gap: 20px;
+            grid-template-columns: 1fr;
+            min-height: 100vh;
+            place-items: center;
+            padding: 20px 0;
+        }
+
+        .slide-container {
+            /* Dimensiones estándar de diapositiva (16:9) */
+            width: 1280px;
+            height: 720px;
+            /* Aplicando el color de fondo principal del Tema 1 */
+            background-color: #f3f0df; /* Crema */
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            padding: 60px;
+            color: #121212; /* Color de texto principal */
+        }
+
+        .slide-container::before {
+            content: '';
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 0;
+        }
+
+        .slide-container > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 2. TIPOGRAFÍA CONSISTENTE (Estilo Tema 1) */
+
+        /* Fuente para Títulos (Merriweather) */
+        .slide-container h1,
+        .slide-container h2,
+        .slide-container h3 {
+            font-family: "Merriweather", serif;
+            font-weight: 700;
+            /* Color de acento principal (Azul) */
+            color: #005088;
+            margin: 0;
+        }
+
+        /* Fuente para Cuerpo de Texto (DM Sans) */
+        .slide-container p,
+        .slide-container li,
+        .slide-container .subtitle,
+        .slide-container cite,
+        .slide-container .timeline-item p,
+        .slide-container .number-label,
+        .slide-container .tile p {
+            font-family: "DM Sans", sans-serif;
+            color: #121212; /* Color de texto oscuro */
+        }
+
+        /* Tamaños de Fuente */
+        .slide-container h1 {
+            font-size: 70px;
+            line-height: 1.1;
+        }
+
+        .slide-container .slide-title {
+            /* h2 para títulos de diapositivas de contenido */
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: left;
+            width: 100%;
+        }
+
+        .slide-container h3 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .slide-container p,
+        .slide-container li {
+            font-size: 20px;
+            line-height: 1.6;
+        }
+
+        .slide-container .subtitle {
+            font-size: 24px;
+            font-weight: 400;
+            margin-top: 20px;
+            line-height: 1.4;
+        }
+
+        .content-area {
+            align-items: center;
+            display: flex;
+            flex-grow: 1;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        /* 3. DEFINICIONES DE DISEÑO (Adaptadas al Tema 1) */
+
+        /* --- Diseño: Title_Slide --- */
+        .title-layout {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+        
+        /* Tema 1: Diapositiva de título con fondo oscuro */
+        .slide-container.title-slide {
+            background-color: #005088; /* Fondo Azul */
+            justify-content: center;
+        }
+        
+        .slide-container.title-slide h1,
+        .slide-container.title-slide .subtitle {
+            color: #f3f0df; /* Texto Crema */
+        }
+
+        /* --- Diseño: Image_Right_Text_Left (Como en demo Tema 1) --- */
+        .two-column {
+            align-items: flex-start;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            width: 100%;
+            flex-grow: 1;
+        }
+
+        .two-column ul {
+            list-style: disc;
+            margin: 0;
+            padding-left: 25px;
+        }
+
+        .two-column li {
+            margin-bottom: 15px;
+            color: #121212;
+            font-size: 20px;
+            line-height: 1.6;
+        }
+
+        .image-wrapper {
+            border-radius: 12px;
+            /* Borde azul del Tema 1 */
+            border: 2px solid #005088;
+            height: 450px;
+            overflow: hidden;
+            width: 100%;
+            margin-top: -20px;
+        }
+
+        .image-wrapper img {
+            height: 100%;
+            object-fit: cover; /* Cambiado a cover para llenar el espacio */
+            width: 100%;
+        }
+        
+        /* --- Diseño: Tiled_Text_With_Icons (Como en demo Tema 1) --- */
+        .tiled-content {
+            align-items: stretch;
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .tile {
+            align-items: center;
+            /* Fondo azul del Tema 1 */
+            background-color: #005088;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            justify-content: flex-start;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .tile .icon {
+            /* Color crema para íconos */
+            color: #f3f0df;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .tile h3,
+        .tile p {
+            /* Color crema para texto sobre fondo azul */
+            color: #f3f0df;
+        }
+        
+        .tile h3 {
+             font-size: 28px;
+        }
+        
+        .tile p {
+             font-size: 18px;
+             line-height: 1.5;
+        }
+
+        /* --- Diseño: Styled_Bullet_Points (Adaptado al Tema 1) --- */
+        .bullet-list {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .bullet-list ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .bullet-list li {
+            position: relative;
+            padding-left: 45px;
+            margin-bottom: 25px;
+            font-size: 22px;
+            line-height: 1.6;
+        }
+
+        .bullet-list i {
+            /* Iconos en color azul (Tema 1) */
+            color: #005088;
+            font-size: 28px;
+            position: absolute;
+            left: 0;
+            top: 4px;
+            text-align: center;
+        }
+        
+        /* --- Diseño: Quote (Adaptado al Tema 1) --- */
+        .quote-layout {
+            text-align: center;
+            width: 80%;
+        }
+
+        .quote-layout blockquote {
+            /* Fuente Merriweather para la cita */
+            font-family: 'Merriweather', serif;
+            font-size: 40px;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #121212;
+            margin: 0 0 30px 0;
+            padding: 0 40px;
+            position: relative;
+        }
+
+        .quote-layout blockquote::before,
+        .quote-layout blockquote::after {
+            /* Comillas en color azul claro */
+            color: #d0e0e3; 
+            content: '"';
+            font-size: 100px;
+            line-height: 0;
+            position: absolute;
+        }
+
+        .quote-layout blockquote::before {
+            left: -10px;
+            top: 30px;
+        }
+
+        .quote-layout blockquote::after {
+            bottom: 10px;
+            right: -10px;
+        }
+
+        .quote-layout cite {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 20px;
+            font-style: normal;
+            color: #475569; /* Gris oscuro */
+        }
+        
+        /* --- Diseño: Timeline (Adaptado al Tema 1) --- */
+        .timeline-layout {
+            align-items: stretch;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            width: 100%;
+        }
+
+        .timeline-layout .timeline-line {
+            background-color: #d0e0e3; /* Azul claro */
+            height: 4px;
+            left: 0;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-2px);
+            width: 100%;
+            z-index: 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            text-align: center;
+            width: 23%;
+        }
+
+        .timeline-item::after {
+            background-color: #f3f0df; /* Fondo crema */
+            border-radius: 50%;
+            /* Borde azul (Tema 1) */
+            border: 4px solid #005088;
+            content: '';
+            height: 20px;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            z-index: 1;
+        }
+
+        .timeline-item .content-wrapper {
+            left: 0;
+            position: absolute;
+            width: 100%;
+        }
+
+        .timeline-item:nth-child(odd) .content-wrapper {
+            bottom: 50%;
+            margin-bottom: 25px;
+        }
+
+        .timeline-item:nth-child(even) .content-wrapper {
+            margin-top: 25px;
+            top: 50%;
+        }
+
+        .timeline-item h3 {
+            color: #005088; /* Azul (Tema 1) */
+            font-size: 24px;
+        }
+        
+        .timeline-item p {
+            font-size: 16px;
+            line-height: 1.4;
+        }
+        
+        /* --- Diseño: Two_Column_Tiled_Text (Adaptado al Tema 1) --- */
+        .two-column.tiled {
+            align-items: stretch;
+        }
+
+        .two-column.tiled > div {
+            /* Fondo azul claro */
+            background-color: #d0e0e3;
+            border-radius: 12px;
+            /* Borde azul oscuro */
+            border: 1px solid #005088;
+            padding: 40px;
+            text-align: left;
+        }
+
+        .two-column.tiled h3 {
+            color: #005088; /* Azul (Tema 1) */
+        }
+        
+        .two-column.tiled p {
+            color: #121212;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Diapositiva 1: Título -->
+    <div class="slide-container title-slide" id="slide1">
+        <div class="title-layout">
+            <!-- Título del folleto -->
+            <h1>¿Debería creer usted en la Trinidad?</h1>
+            <!-- Subtítulo del folleto -->
+            <p class="subtitle">¿Es igual Jesucristo al Dios Todopoderoso?</p>
+        </div>
+    </div>
+
+    <!-- Diapositiva 2: Introducción y El Problema (Layout: Image_Right_Text_Left) -->
+    <div class="slide-container" id="slide2">
+        <h2 class="slide-title">Una doctrina central en debate</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <!-- Contenido de la página 3 del folleto -->
+                    <p style="margin-bottom: 20px;">La Trinidad es la doctrina central de la cristiandad. Por lo general, se define como tres personas (el Padre, el Hijo y el Espíritu Santo) en un solo Dios.</p>
+                    <p style="margin-bottom: 20px;">Se dice que los tres son coiguales, todopoderosos e increados, existiendo eternamente en la Deidad.</p>
+                    <p>Pero, ¿qué es exactamente la Trinidad? ¿La enseña la Biblia? Este examen busca responder a estas preguntas.</p>
+                </div>
+                <!-- ILUSTRACIÓN 1: Tríadas paganas/Arte trinitario -->
+                <div>
+                    <div class="image-wrapper">
+                        <!-- RUTA CORREGIDA FINAL: Busca el archivo imagen_triadas.jpg -->
+                        <img src="imagen_triadas.jpg" alt="Comparación de tríadas paganas y arte trinitario cristiano" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diapositiva 3: Un "Misterio" Incomprensible (Layout: Tiled_Text_With_Icons) -->
+    <div class="slide-container" id="slide3">
+        <h2 class="slide-title">Un "misterio" incomprensible</h2>
+        <div class="content-area">
+            <div class="tiled-content">
+                <!-- Adaptado del Tema 1, usando los colores del tema -->
+                <div class="tile">
+                    <div class="icon"><i class="fa-solid fa-cross"></i></div>
+                    <h3>La Definición</h3>
+                    <!-- Cita del Credo de Atanasio (página 3) -->
+                    <p>"El Padre es Dios, el Hijo es Dios y el Espíritu Santo es Dios, y sin embargo no hay tres Dioses, sino un solo Dios."</p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fa-solid fa-brain"></i></div>
+                    <h3>El Problema</h3>
+                    <!-- Citas sobre la confusión (página 4) -->
+                    <p>Considerada "más allá de lo que puede concebir la razón humana". El Papa Juan Pablo II habló del "misterio inescrutable de Dios la Trinidad".</p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fa-solid fa-question"></i></div>
+                    <h3>La Confusión</h3>
+                    <!-- Citas sobre la confusión (página 4) -->
+                    <p>Un jesuita admite la "vacilación en cuanto a presentarla a la gente desde el púlpito", preguntando: "¿Por qué aburrir a la gente?".</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diapositiva 4: ¿Está en la Biblia? (Layout: Styled_Bullet_Points) -->
+    <div class="slide-container" id="slide4">
+        <h2 class="slide-title">El testimonio de las Escrituras</h2>
+        <div class="content-area">
+            <div class="bullet-list">
+                <!-- Resumen de las páginas 5-6 -->
+                <ul>
+                    <li><i class="fa-solid fa-book-open"></i><strong>Sin la palabra "Trinidad":</strong> La palabra "Trinidad" no se encuentra en la Biblia. Apareció por primera vez en latín (*trinitas*) en escritos de Tertuliano, alrededor de 200 E.C.</li>
+                    <li><i class="fa-solid fa-times"></i><strong>Ausente en el "Antiguo Testamento":</strong> Los teólogos concuerdan en que "la Biblia hebrea no contiene ninguna doctrina de la Trinidad".</li>
+                    <li><i class="fa-solid fa-times"></i><strong>Ausente en el "Nuevo Testamento":</strong> Tampoco el Nuevo Testamento contiene una doctrina trinitaria explícita. "Ni la palabra Trinidad ni la doctrina explícita aparecen en el Nuevo Testamento".</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diapositiva 5: ¿Qué creían los primeros cristianos? (Layout: Quote) -->
+    <div class="slide-container" id="slide5">
+        <h2 class="slide-title">La creencia de la iglesia primitiva</h2>
+        <div class="content-area">
+            <div class="quote-layout">
+                <!-- Cita de la página 6 -->
+                <blockquote>"Al principio la fe cristiana no era trinitaria [...] Tampoco lo fue en las épocas apostólica y subapostólica."</blockquote>
+                <cite>— Encyclopædia of Religion and Ethics</cite>
+                <!-- Resumen de la página 7 -->
+                <p style="margin-top: 30px; font-size: 22px;">Los Padres de antes de Nicea (Justino Mártir, Ireneo, Clemente, Tertuliano) enseñaron que Jesús era un ser creado, separado e inferior a Dios.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diapositiva 6: El Desarrollo de la Doctrina (Layout: Timeline) -->
+    <div class="slide-container" id="slide6">
+        <h2 class="slide-title">¿Cómo se desarrolló la doctrina?</h2>
+        <div class="content-area">
+            <!-- Adaptado del Timeline genérico, con estilo del Tema 1 -->
+            <div class="timeline-layout">
+                <div class="timeline-line"></div>
+                <!-- Resumen de las páginas 7-9 -->
+                <div class="timeline-item">
+                    <div class="content-wrapper">
+                        <h3>325 E.C. - Nicea</h3>
+                        <p>El emperador Constantino (un pagano) interviene y propone que Cristo es "consustancial" con Dios. Aún no se establece la Trinidad.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="content-wrapper">
+                        <h3>381 E.C. - Constantinopla</h3>
+                        <p>El emperador Teodosio convoca un concilio que eleva al espíritu santo al mismo nivel que Dios y Cristo. La Trinidad empieza a tomar forma.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="content-wrapper">
+                        <h3>Siglo V</h3>
+                        <p>Se compone el Credo de Atanasio, que define la Trinidad en términos más completos, aunque Atanasio no lo escribió.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="content-wrapper">
+                        <h3>Edad Media</h3>
+                        <p>El "desarrollo pleno del trinitarismo" tiene lugar en el escolasticismo, siglos después de Cristo. Fue "principalmente un asunto de política eclesiástica".</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diapositiva 7: ¿Una Influencia Pagana? (Layout: Tiled_Text_With_Icons) -->
+    <div class="slide-container" id="slide7">
+        <h2 class="slide-title">¿Una influencia pagana?</h2>
+        <div class="content-area">
+            <div class="tiled-content">
+                <!-- Resumen de las páginas 9-11 -->
+                <div class="tile">
+                    <div class="icon"><i class="fa-solid fa-landmark"></i></div>
+                    <h3>Babilonia y Egipto</h3>
+                    <p>La adoración de dioses paganos en tríadas era común en Babilonia (Anu, Enlil, Ea) y Egipto (Osiris, Isis, Horus) siglos antes de Cristo.</p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fa-solid fa-university"></i></div>
+                    <h3>Platonismo</h3>
+                    <p>Las filosofías de Platón (c. 428-347 a.E.C.) sobre una "trinidad divina" prepararon el camino e "injertaron" esta idea en el cristianismo.</p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fa-solid fa-exclamation-triangle"></i></div>
+                    <h3>Apostasía</h3>
+                    <p>El folleto argumenta que este desarrollo fue una "desviación" y "apostasía" de la enseñanza cristiana primitiva, predicha por los apóstoles.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diapositiva 8: La Perspectiva Bíblica de Dios (Layout: Image_Right_Text_Left) -->
+    <div class="slide-container" id="slide8">
+        <h2 class="slide-title">La Biblia: ¿Cómo es Dios?</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <!-- Resumen de las páginas 12-13 -->
+                    <p style="margin-bottom: 20px;">La Biblia enseña el monoteísmo estricto. Dios es un solo ser.</p>
+                    <ul>
+                        <li>"Escucha, Israel: Yahveh, nuestro Dios, Yahveh es uno." (Deuteronomio 6:4, BC)</li>
+                        <li>"Yo soy Jehová. Ese es mi nombre; y a ningún otro daré yo mi propia gloria." (Isaías 42:8)</li>
+                        <li>"Yo soy Jehová, y no hay ningún otro. Con la excepción de mí no hay Dios." (Isaías 45:5)</li>
+                        <li>Solo a Jehová se le llama "Todopoderoso".</li>
+                    </ul>
+                </div>
+                <!-- ILUSTRACIÓN 2: Jesús enseñando / El monoteísmo -->
+                <div>
+                    <div class="image-wrapper">
+                        <!-- RUTA CORREGIDA FINAL: Busca el archivo imagen_jesus_barca.jpg -->
+                        <img src="imagen_jesus_barca.jpg" alt="Jesús enseñando desde una barca" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diapositiva 9: La Perspectiva Bíblica de Jesús (Layout: Styled_Bullet_Points) -->
+    <div class="slide-container" id="slide9">
+        <h2 class="slide-title">La Biblia: ¿Quién es Jesús?</h2>
+        <div class="content-area">
+            <div class="bullet-list">
+                <!-- Resumen de las páginas 14-19 -->
+                <ul>
+                    <li><i class="fa-solid fa-user"></i><strong>Un Ser Creado:</strong> Llamado el "Primogénito de toda la creación" (Colosenses 1:15) y "el principio de la creación de Dios" (Apocalipsis 3:14).</li>
+                    <li><i class="fa-solid fa-child"></i><strong>El Hijo de Dios:</strong> El término "Hijo unigénito" (Juan 3:16) indica que tuvo un principio, creado directamente por Dios.</li>
+                    <li><i class="fa-solid fa-arrow-down"></i><strong>Un Ser Subordinado:</strong> Jesús mismo dijo: "el Padre es más que yo" (Juan 14:28) y "He bajado del cielo para hacer, no la voluntad mía, sino la voluntad del que me ha enviado" (Juan 6:38).</li>
+                    <li><i class="fa-solid fa-level-up-alt"></i><strong>Su Dios:</strong> Después de resucitar, Jesús dijo: "Voy a subir a mi Padre y vuestro Padre, a mi Dios y vuestro Dios" (Juan 20:17).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diapositiva 10: La Perspectiva Bíblica del Espíritu Santo (Layout: Image_Right_Text_Left) -->
+    <div class="slide-container" id="slide10">
+        <h2 class="slide-title">La Biblia: ¿Qué es el espíritu santo?</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <!-- Resumen de las páginas 20-22 -->
+                    <p style="margin-bottom: 20px;">El folleto argumenta que el espíritu santo no es una persona, sino la <strong>fuerza activa</strong> de Dios, su poder en acción.</p>
+                    <ul>
+                        <li>Se le compara con el viento, el fuego y el agua.</li>
+                        <li>"Todos se llenaron de espíritu santo." (Hechos 2:4) - No se pueden "llenar" de una persona.</li>
+                        <li>Descendió sobre Jesús "como paloma", no como persona.</li>
+                        <li>Apareció sobre los discípulos como "lenguas de fuego".</li>
+                        <li>A Catholic Dictionary admite: "En general, tanto el Nuevo Testamento como el Antiguo hablan del espíritu como de energía o poder divino".</li>
+                    </ul>
+                </div>
+                <!-- ILUSTRACIÓN 3: Espíritu Santo descendiendo como paloma -->
+                <div>
+                    <div class="image-wrapper">
+                        <!-- RUTA CORREGIDA FINAL: Busca el archivo imagen_paloma.jpg -->
+                        <img src="imagen_paloma.jpg" alt="Espíritu Santo descendiendo como paloma" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diapositiva 11: ¿Qué hay de los "textos de prueba"? (Layout: Two_Column_Tiled_Text) -->
+    <div class="slide-container" id="slide11">
+        <h2 class="slide-title">¿Qué hay de los "textos de prueba"?</h2>
+        <div class="content-area">
+            <!-- Adaptado del diseño genérico con el estilo del Tema 1 -->
+            <div class="two-column tiled">
+                <!-- Resumen de las páginas 23-29 -->
+                <div>
+                    <h3>Juan 1:1 - "La Palabra era Dios"</h3>
+                    <p>El griego original no tiene artículo indefinido ("un"). Sin embargo, el primer "Dios" (<i>ho theós</i>) tiene el artículo "el", refiriéndose al Dios Todopoderoso. El segundo "Dios" (<i>theós</i>) no lo tiene, indicando una cualidad. Por eso, muchas traducciones vierten "un dios" o "divino", mostrando que la Palabra estaba "con" Dios, pero no *era* el Dios Todopoderoso.</p>
+                </div>
+                <div>
+                    <h3>Juan 10:30 - "Yo y el Padre somos uno"</h3>
+                    <p>Jesús no habla de unidad de sustancia, sino de propósito. En Juan 17:21, 22, Jesús ora para que sus discípulos "sean uno así como nosotros somos uno". Claramente, no oraba para que se convirtieran en una sola entidad, sino para que estuvieran unidos en pensamiento.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diapositiva 12: Conclusión (Layout: Title_Slide) -->
+    <div class="slide-container title-slide" id="slide12">
+        <div class="title-layout">
+            <!-- Cita clave de la página 30 -->
+            <h1>"Esto significa vida eterna..."</h1>
+            <p class="subtitle">"...el que estén adquiriendo conocimiento de ti, el único Dios verdadero, y de aquel a quien tú enviaste, Jesucristo."<br/>(Juan 17:3)</p>
+            <p class="subtitle" style="margin-top: 40px;">El folleto concluye que adorar a Dios según Sus condiciones significa rechazar la doctrina de la Trinidad.</p>
+        </div>
+    </div>
+
+</body>
+</html>
